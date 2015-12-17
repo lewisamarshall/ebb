@@ -1,8 +1,5 @@
 from __future__ import print_function, division, absolute_import
 
-import pint
-
-
 class Fluid(object):
 
     @classmethod

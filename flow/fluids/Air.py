@@ -1,15 +1,12 @@
-
 from .Fluid import Fluid
-import pint
-
-ur = pint.UnitRegistry()
+from .. import ur
 
 class Air(Fluid):
 
     @classmethod
-    def viscosity(temperature=None, pressure=None):
+    def viscosity(self, temperature=None, pressure=None):
         return ur.pascal * ur.second * 18e-6
 
     @classmethod
-    def density(temperature=None, pressure=None):
+    def density(self, temperature=None, pressure=None):
         return ur.gram/ur.liter * 1.225
