@@ -17,7 +17,7 @@ class CircularPipe(Pipe):
 
     @property
     def length(self):
-        return self.length
+        return self._length
 
     @property
     def section(self):
