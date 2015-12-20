@@ -3,16 +3,29 @@ from .. import ur, Q
 
 class Fluid(object):
 
-    _default_units = {'temperature': ur.degC,
+    _default_units = {'temperature': ur.degK,
                       'pressure': ur.bar,
                       }
 
+    _default_values = {'temperature': Q(25, ur.degC),
+                       'pressure': 1 * ur.bar,
+                       }
+
+    def __new__(cls, *args, **kwargs):
+        raise TypeError('Fluids may not be instantiated.')
+
     @classmethod
     def viscosity(self, temperature=None, pressure=None):
+        temperature = self._unitize(temperature, 'temperature')
+        pressure = self._unitize(pressure, 'pressure')
+        print(temperature)
+        print(pressure)
         raise NotImplementedError
 
     @classmethod
     def density(self, temperature=None, pressure=None):
+        temperature = self._unitize(temperature, 'temperature')
+        pressure = self._unitize(pressure, 'pressure')
         raise NotImplementedError
 
     @classmethod
@@ -22,32 +35,14 @@ class Fluid(object):
         return viscosity/density
 
     @classmethod
-    def __str__(self):
-        pass
+    def _unitize(self, arg, dim):
+        if arg is None:
+            return self._default_values[dim]
 
-    @classmethod
-    def __repr__(self):
-        pass
-
-    @classmethod
-    def _wrap(self, f):
-        """Decorator to check units on temperature and pressure."""
-        def wrapper(self, temperature=None, pressure=None):
-            temperature = Q(temperature)
-            pressure = Q(pressure)
-
-            if temperature.dimensionless:
-                temperature *= self._default_units['temperature']
-            elif temperature.dimensionality != \
-                    self._default_units['temperature'].dimensionality:
-                raise RuntimeError('Incompatible units.')
-
-            if pressure.dimensionless:
-                pressure *= self._default_units['pressure']
-            elif pressure.dimensionality != \
-                    self._default_units['pressure'].dimensionality:
-                string = 'Incompatible units. {}.dimensionality != {}.dimensonality'
-                raise RuntimeError(string.format(pressure,
-                                                 self._default_units['pressure']
-                                                 )
-
+        arg = Q(arg)
+        dim = self._default_units[dim]
+        if arg.dimensionless:
+            return arg * dim
+        elif arg.dimensionality != dim.dimensionality:
+            string = 'Incompatible units. {}.dimensionality != {}.dimensonality'
+            raise RuntimeError(string.format(arg, dim))
