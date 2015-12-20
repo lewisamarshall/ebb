@@ -15,18 +15,15 @@ class CircularPipe(Pipe):
     def _section(self):
         return pi * self.radius**2.
 
-    def _edge(self):
+    def _perimeter(self):
         return 2 * pi * self.radius
 
-    def _characteristic(self):
-        return 2 * self.radius
-
     def _velocity(self, radius=0, angle=None):
-        return (1 / 4 / self.fluid.viscosity() * self.pressure() /
+        return (1 / 4 / self.fluid().viscosity() * self.pressure() /
                 self.length * (self.radius**2 - radius**2))
 
-    def _max_velocity(self):
-        return self.velocity(0, 0)
+    def _maximum_velocity(self):
+        return self._velocity(0, 0)
 
     def _flow(self):
         Q = pi * self.radius**4 * self.pressure() / self.length / 8 / self.fluid.viscosity()

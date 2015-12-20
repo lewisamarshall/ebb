@@ -14,6 +14,10 @@ class Pipe(object):
     def length(self):
         return self._length
 
+    @property
+    def hydraulic_diameter(self):
+        return 4 * self.section / self.perimeter
+
     def __init__(self):
         raise NotImplementedError
 
@@ -39,8 +43,6 @@ class Pipe(object):
     def pressure(self, pressure=False):
         if pressure is not False:
             self._pressure, old_pressure = pressure, self._pressure
-
-
 
             @contextmanager
             def pressuremanager():
@@ -71,7 +73,7 @@ class Pipe(object):
 
     def reynolds(self, pressure=False, fluid=False):
         with self.fluid(fluid), self.pressure(pressure):
-            return (self.maximum_velocity() * self.characteristic /
+            return (self.maximum_velocity() * self.hydraulic_diameter /
                     self.fluid.kinematic())
 
     @property
@@ -85,16 +87,11 @@ class Pipe(object):
         return self._section()
 
     @property
-    def edge(self):
+    def perimeter(self):
         """length of line around pipe."""
-        return self._edge()
+        return self._perimeter()
 
     @property
     def surface(self):
         """Surface area of the pipe."""
-        return self.edge * self.length
-
-    @property
-    def characteristic(self):
-        """Characteristic length scale of the pipe."""
-        return self._characteristic()
+        return self.perimeter * self.length
