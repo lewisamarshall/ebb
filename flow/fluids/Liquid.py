@@ -20,14 +20,14 @@ class Liquid(Fluid):
     elasticity = None
 
     @classmethod
-    def viscosity(self, temperature=None, pressure=None):
+    def _viscosity(self, temperature, pressure):
         reduced_energy = (self.activation_energy /
                           (gas_constant * kelvin(temperature))
                           )
         return self._reference_viscosity * exp(reduced_energy)
 
     @classmethod
-    def density(self, temperature=None, pressure=None):
+    def _density(self, temperature, pressure):
         density = self.reference_density / (1 + self.expansion *
                                             (temperature - self.reference_temperature))
         density = density / (1 - (pressure - self.reference_pressure) /

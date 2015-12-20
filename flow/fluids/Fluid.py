@@ -16,20 +16,29 @@ class Fluid(object):
 
     @classmethod
     def viscosity(self, temperature=None, pressure=None):
+        """Return the dynamic viscosity of the fluid."""
         temperature = self._unitize(temperature, 'temperature')
         pressure = self._unitize(pressure, 'pressure')
-        print(temperature)
-        print(pressure)
+        return self._viscosity(temperature, pressure)
+
+    @classmethod
+    def _viscosity(self, temperature, pressure):
         raise NotImplementedError
 
     @classmethod
     def density(self, temperature=None, pressure=None):
+        """Return the density of the fluid."""
         temperature = self._unitize(temperature, 'temperature')
         pressure = self._unitize(pressure, 'pressure')
+        return self._density(temperature, pressure)
+
+    @classmethod
+    def _density(self, temperature, pressure):
         raise NotImplementedError
 
     @classmethod
     def kinematic(self, temperature=None, pressure=None):
+        """return the kinematic viscosity of the fluid."""
         density = self.density(temperature, pressure)
         viscosity = self.viscosity(temperature, pressure)
         return viscosity/density

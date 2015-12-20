@@ -17,7 +17,7 @@ class Water(Liquid):
 
 
     @classmethod
-    def viscosity(self, temperature=None, pressure=None):
+    def _viscosity(self, temperature, pressure):
         reduced_temperature = (self.activation_temperature /
                                (temperature - self.temperature_offset))
         return self.reference_viscosity * 10.** reduced_temperature
