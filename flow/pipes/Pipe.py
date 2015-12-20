@@ -56,7 +56,7 @@ class Pipe(object):
     def flow(self, pressure=False, fluid=False):
         """The volumetric flow rate of fluid in the channel."""
         with self.fluid(fluid or False), self.pressure(pressure or False):
-            return self._flow()
+            return self._flow().to('L/s')
 
     def resistance(self, fluid=False):
         """The hydrodynamic resistance of the channel."""
@@ -65,16 +65,16 @@ class Pipe(object):
 
     def velocity(self, radius, angle, pressure=False, fluid=False):
         with self.pressure(pressure), self.fluid(fluid):
-            return self._velocity(radius, angle)
+            return self._velocity(radius, angle).to('m/s')
 
     def maximum_velocity(self, pressure=False, fluid=False):
         with self.pressure(pressure), self.fluid(fluid):
-            return self._maximum_velocity()
+            return self._maximum_velocity().to('m/s')
 
     def reynolds(self, pressure=False, fluid=False):
         with self.fluid(fluid), self.pressure(pressure):
             return (self.maximum_velocity() * self.hydraulic_diameter /
-                    self.fluid.kinematic())
+                    self.fluid().kinematic())
 
     @property
     def volume(self):

@@ -26,7 +26,7 @@ class CircularPipe(Pipe):
         return self._velocity(0, 0)
 
     def _flow(self):
-        Q = pi * self.radius**4 * self.pressure() / self.length / 8 / self.fluid.viscosity()
+        Q = pi * self.radius**4 * self.pressure() / self.length / 8 / self.fluid().viscosity()
         return Q
 
     def _resistance(self):
