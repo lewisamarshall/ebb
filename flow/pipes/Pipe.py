@@ -1,14 +1,21 @@
 from __future__ import division, print_function, absolute_import
-from .. import ur
 
+from contextlib import contextmanager
+
+from .. import ur
 
 class Pipe(object):
 
     _fluid = None
     _pressure = None
+    _length = None
+
+    @property
+    def length(self):
+        return self._length
 
     def __init__(self):
-        pass
+        raise NotImplementedError
 
     def __str__(self):
         pass
@@ -18,30 +25,76 @@ class Pipe(object):
 
     def fluid(self, fluid=False):
         if fluid is not False:
-            self._fluid = fluid
+            self._fluid, old_fluid = fluid, self._fluid
+
+            @contextmanager
+            def fluidmanager():
+                yield
+                self._fluid = old_fluid
+
+            return fluidmanager()
         else:
             return self._fluid
 
     def pressure(self, pressure=False):
         if pressure is not False:
-            self._pressure = pressure
+            self._pressure, old_pressure = pressure, self._pressure
+
+
+
+            @contextmanager
+            def pressuremanager():
+                yield
+                self._pressure = old_pressure
+
+            return pressuremanager()
         else:
             return self._pressure
 
-    def flowrate(self, pressure, viscosity=None):
-        raise NotImplementedError
+    def flow(self, pressure=False, fluid=False):
+        """The volumetric flow rate of fluid in the channel."""
+        with self.fluid(fluid or False), self.pressure(pressure or False):
+            return self._flow()
 
-    def resistance(self, viscosity=None):
-        raise NotImplementedError
+    def resistance(self, fluid=False):
+        """The hydrodynamic resistance of the channel."""
+        with self.fluid(fluid):
+            return self._resistance()
+
+    def velocity(self, radius, angle, pressure=False, fluid=False):
+        with self.pressure(pressure), self.fluid(fluid):
+            return self._velocity(radius, angle)
+
+    def maximum_velocity(self, pressure=False, fluid=False):
+        with self.pressure(pressure), self.fluid(fluid):
+            return self._maximum_velocity()
+
+    def reynolds(self, pressure=False, fluid=False):
+        with self.fluid(fluid), self.pressure(pressure):
+            return (self.maximum_velocity() * self.characteristic /
+                    self.fluid.kinematic())
 
     @property
     def volume(self):
+        """Volume of the pipe."""
         return self.section * self.length
 
     @property
     def section(self):
-        raise NotImplementedError
+        """Cross sectional area of the pipe."""
+        return self._section()
+
+    @property
+    def edge(self):
+        """length of line around pipe."""
+        return self._edge()
 
     @property
     def surface(self):
-        raise NotImplementedError
+        """Surface area of the pipe."""
+        return self.edge * self.length
+
+    @property
+    def characteristic(self):
+        """Characteristic length scale of the pipe."""
+        return self._characteristic()

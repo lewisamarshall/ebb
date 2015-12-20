@@ -8,18 +8,29 @@ class CircularPipe(Pipe):
         self._radius = radius
         self._length = length
 
-    def velocity(self, radius=0, pressure=None, fluid=None):
-        pass
-
     @property
     def radius(self):
         return self._radius
 
-    @property
-    def length(self):
-        return self._length
-
-    @property
-    def section(self):
+    def _section(self):
         return pi * self.radius**2.
 
+    def _edge(self):
+        return 2 * pi * self.radius
+
+    def _characteristic(self):
+        return 2 * self.radius
+
+    def _velocity(self, radius=0, angle=None):
+        return (1 / 4 / self.fluid.viscosity() * self.pressure() /
+                self.length * (self.radius**2 - radius**2))
+
+    def _max_velocity(self):
+        return self.velocity(0, 0)
+
+    def _flow(self):
+        Q = pi * self.radius**4 * self.pressure() / self.length / 8 / self.fluid.viscosity()
+        return Q
+
+    def _resistance(self):
+        pass
