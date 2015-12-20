@@ -21,11 +21,18 @@ class Pipe(object):
     def __init__(self):
         raise NotImplementedError
 
-    def __str__(self):
-        pass
-
     def __repr__(self):
-        pass
+        """Return an unambiguous string representation."""
+        inner = []
+        for prop in self.__dict__:
+            prop = str(prop).lstrip('_')  # convert unicode to string
+            value = getattr(self, prop)
+            inner.append('{}={}'.format(str(prop), repr(value)))
+        return '{}({})'.format(type(self).__name__, ', '.join(inner))
+
+    def __str__(self):
+        """Return a readable string representation."""
+        return repr(self)
 
     def fluid(self, fluid=False):
         if fluid is not False:
