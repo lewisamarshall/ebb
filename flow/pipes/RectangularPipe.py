@@ -46,7 +46,7 @@ class RectangularPipe(Pipe):
 
     def _flow(self, precision=11):
         prefactor = 4 * self.width * self.height**3 / 3 / self.fluid().viscosity()
-        return prefactor * -self.pressure() / self.length * \
+        return prefactor * self.pressure() / self.length * \
                 (1 - 192 * self.height / pi**5 / self.width *
                  sum(self._flow_term(i) for i in range(1, precision, 2)
                      )
