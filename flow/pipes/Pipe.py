@@ -80,8 +80,8 @@ class Pipe(object):
 
     def reynolds(self, pressure=False, fluid=False):
         with self.fluid(fluid), self.pressure(pressure):
-            return (self.maximum_velocity() * self.hydraulic_diameter /
-                    self.fluid().kinematic())
+            return (self.maximum_velocity(pressure, fluid) * self.hydraulic_diameter /
+                    self.fluid().kinematic()).to('')
 
     @property
     def volume(self):

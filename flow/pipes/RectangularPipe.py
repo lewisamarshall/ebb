@@ -1,5 +1,5 @@
 from __future__ import division, print_function, absolute_import
-from math import sqrt
+from math import sqrt, pi, cos, cosh, tanh
 from .Pipe import Pipe
 
 class RectangularPipe(Pipe):
@@ -26,18 +26,34 @@ class RectangularPipe(Pipe):
     def _perimeter(self):
         return 2 * (self.height + self.width)
 
-    def _velocity(self, radius=0, angle=None):
-        pass
-        # return (1 / 4 / self.fluid.viscosity() * self.pressure() /
-        #        self.length * (self.radius**2 - radius**2))
+    def _velocity(self, y=0, z=0, precision=11):
+        summation = sum(self._velocity_term(y, z, i) for i in range(1, precision, 2))
+        return 16 * self.width**2 / self.fluid().viscosity() / pi**3 * \
+                summation * -self.pressure() / self.length
+
+
+    def _velocity_term(self, y, z, i):
+        prefactor = (-1)**((i-1)/2)
+        first_term = 1 - (cosh(i * pi * z / 2 / self.width) /
+                          cosh(i * pi * self.height / 2 / self.width)
+                          )
+        second_term = cos(i * pi * y / 2 / self.width) / i**3
+
+        return prefactor * first_term * second_term
 
     def _maximum_velocity(self):
         return self._velocity(self.height/2, self.width/2)
 
-    def _flow(self):
-        pass
-        #Q = pi * self.radius**4 * self.pressure() / self.length / 8 / self.fluid.viscosity()
-        #return Q
+    def _flow(self, precision=11):
+        prefactor = 4 * self.width * self.height**3 / 3 / self.fluid().viscosity()
+        return prefactor * -self.pressure() / self.length * \
+                (1 - 192 * self.height / pi**5 / self.width *
+                 sum(self._flow_term(i) for i in range(1, precision, 2)
+                     )
+                 )
+
+    def _flow_term(self, i):
+        return tanh(i * pi * self.height / 2/ self.width) / i**5
 
     def _resistance(self):
         pass

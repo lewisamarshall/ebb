@@ -4,6 +4,7 @@ import unittest
 
 from .fluids import Fluid, Air, Water
 from .pipes import Pipe, CircularPipe, RectangularPipe
+from . import Q
 
 
 class FluidTests(object):
@@ -40,13 +41,19 @@ class TestPipe(object):
         self.pipe.volume
 
     def test_maximum_velocity(self):
-        self.pipe.maximum_velocity(fluid=Water, pressure=0.1)
+        print(self.pipe.maximum_velocity(fluid=Water, pressure=Q('0.1 psi')))
 
-class TestCircularPipe(unittest.TestCase, TestPipe):
-    pipe=CircularPipe(0.1, 1)
+    def test_flow(self):
+        self.pipe.flow(fluid=Water, pressure=Q('0.1 psi'))
 
-class TestRectangularPipe(unittest.TestCase, TestPipe):
-    pipe=RectangularPipe(0.1, 0.05, 1)
+    def test_reynolds(self):
+        print(self.pipe.reynolds(fluid=Water, pressure=Q('0.1 psi')))
+
+class TestUnitedCircularPipe(unittest.TestCase, TestPipe):
+    pipe=CircularPipe(Q('1 mm'), Q('1 m'))
+
+class TestUnitedRectangularPipe(unittest.TestCase, TestPipe):
+    pipe=RectangularPipe(Q('1 mm'), Q('5 mm'), Q('1 m'))
 
 if __name__ == '__main__':
     unittest.main()
