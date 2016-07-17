@@ -4,7 +4,7 @@ language: python
 
 python:
 - '2.7'
-- '3.4'
+- '3.5'
 
 notifications:
   email: false
@@ -25,6 +25,15 @@ install:
 - pip install pint coveralls
 
 script:
-- coverage run --source=flow setup.py test
+- coverage run --source=ebb setup.py test
 
 after_success: coveralls
+
+deploy:
+  provider: pypi
+  user: lewis.a.marshall
+  password:
+    secure: ED3TmnEto2g+XHZXe4HdxqQEuyn5V/erpTjbH5tkwOA2UB/eSe3mcd9nBDWg0VLeCqYAbEkIA5N+NCgKYP4n7vMYNNzU/pZ+q63cJt8DNqd2Ocxo1G7g0LEsRnuDTEad2cMKHc7eWtidJUer1j6LxzASqsK5doOudhgY1SxEX1Q=
+  on:
+    tags: true
+    branch: master
