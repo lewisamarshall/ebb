@@ -1,5 +1,5 @@
 from .Liquid import Liquid
-from .. import ur, Q
+from ..units import ur, Q
 
 class Water(Liquid):
 

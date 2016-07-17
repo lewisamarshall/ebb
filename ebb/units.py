@@ -1,5 +1,8 @@
 from __future__ import absolute_import, print_function, division
-from . import ur
+
+from pint import UnitRegistry
+ur = UnitRegistry()
+Q = ur.Quantity
 
 def unitize(self, arg, dim):
     if arg is None:

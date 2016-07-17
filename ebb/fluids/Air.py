@@ -1,5 +1,5 @@
 from .Fluid import Fluid
-from .. import ur
+from ..units import ur
 
 class Air(Fluid):
 

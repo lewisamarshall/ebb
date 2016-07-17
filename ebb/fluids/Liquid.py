@@ -3,7 +3,6 @@ from __future__ import print_function, absolute_import, division
 from math import exp
 
 from .Fluid import Fluid
-from .. import ur
 from ..constants import gas_constant
 
 class Liquid(Fluid):

@@ -1,5 +1,5 @@
 from __future__ import print_function, division, absolute_import
-from .. import ur, Q
+from ..units import ur, Q
 
 class Fluid(object):
 

@@ -4,7 +4,7 @@ import unittest
 
 from .fluids import Fluid, Air, Water
 from .pipes import Pipe, CircularPipe, RectangularPipe
-from . import Q
+from .units import Q
 
 
 class FluidTests(object):
