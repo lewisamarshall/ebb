@@ -1,7 +1,7 @@
-import flow
-from flow.pipes import RectangularPipe
-from flow.fluids import Air
-from flow import Q
+import ebb
+from ebb.pipes import RectangularPipe
+from ebb.fluids import Air
+from ebb import Q
 
 pipe = RectangularPipe(width=Q('1e-3 m'), height=Q('3e-4 m'), length=Q('2e-2 m'))
 # pipe.resistance()

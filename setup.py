@@ -7,13 +7,13 @@ except:
     long_description = None
 
 # Read version from package.
-from flow.__version__ import __version__
+from ebb.__version__ import __version__
 
-setup(name='flow',
+setup(name='ebb',
       version=__version__,
       author='Lewis A. Marshall',
       author_email='lewis.a.marshall@gmail.com',
-      url="http://lewisamarshall.github.io/flow/",
+      url="http://lewisamarshall.github.io/ebb/",
       classifiers=[
           "Programming Language :: Python",
           "Environment :: Console",
@@ -22,10 +22,10 @@ setup(name='flow',
           ],
       use_2to3=False,
       license='LICENSE',
-      description='A package for calculating electrolyte properties.',
+      description='A package for liquid flow calculations.',
       long_description=long_description,
       packages=find_packages(),
       requires=['numpy', 'scipy', 'pint', 'click'],
-      entry_points={'console_scripts': ['flow = flow.__main__:cli']},
-      test_suite="flow.tests",
+      entry_points={'console_scripts': ['ebb = ebb.__main__:cli']},
+      test_suite="ebb.tests",
       )
