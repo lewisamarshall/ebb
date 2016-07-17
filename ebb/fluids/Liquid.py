@@ -1,4 +1,4 @@
-from __future__ import print_function, absolute_import, division
+from __future__ import absolute_import, division
 
 from math import exp
 
@@ -21,14 +21,15 @@ class Liquid(Fluid):
     @classmethod
     def _viscosity(self, temperature, pressure):
         reduced_energy = (self.activation_energy /
-                          (gas_constant * kelvin(temperature))
+                          (gas_constant * temperature)
                           )
         return self._reference_viscosity * exp(reduced_energy)
 
     @classmethod
     def _density(self, temperature, pressure):
         density = self.reference_density / (1 + self.expansion *
-                                            (temperature - self.reference_temperature))
+                                            (temperature -
+                                             self.reference_temperature))
         density = density / (1 - (pressure - self.reference_pressure) /
                              self.elasticity)
         return density

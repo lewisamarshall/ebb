@@ -1,8 +1,6 @@
-from __future__ import division, print_function, absolute_import
+from __future__ import division, absolute_import
 
 from contextlib import contextmanager
-
-from ..units import ur
 
 class Pipe(object):
 

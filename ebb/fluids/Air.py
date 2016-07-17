@@ -1,5 +1,5 @@
 from .Fluid import Fluid
-from ..units import ur
+from ..units import unit_registry as ur, Quantity as Q
 
 class Air(Fluid):
 

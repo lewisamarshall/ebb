@@ -1,15 +1,15 @@
-from __future__ import print_function, division, absolute_import
+from __future__ import absolute_import
 
 import unittest
 
 from .fluids import Fluid, Air, Water
 from .pipes import Pipe, CircularPipe, RectangularPipe
-from .units import Q
+from .units import Quantity as Q
 
 
 class FluidTests(object):
 
-    fluid = None
+    fluid = Fluid
 
     def test_viscosity(self):
         self.fluid.viscosity()
@@ -29,7 +29,7 @@ class TestAir(unittest.TestCase, FluidTests):
 
 class TestPipe(object):
 
-    pipe=None
+    pipe = Pipe
 
     def test_resistance(self):
         self.pipe.resistance(fluid=Water)

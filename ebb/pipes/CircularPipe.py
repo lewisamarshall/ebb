@@ -1,12 +1,13 @@
-from __future__ import division, print_function, absolute_import
+from __future__ import division, absolute_import
 from math import pi
 from .Pipe import Pipe
+from ..units import unitize
 
 class CircularPipe(Pipe):
 
     def __init__(self, radius, length):
-        self._radius = radius
-        self._length = length
+        self._radius = unitize(radius, 'length')
+        self._length = unitize(length, 'length')
 
     @property
     def radius(self):

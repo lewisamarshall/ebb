@@ -1,11 +1,11 @@
-- [ ] Logical import structure.
-- [ ] Deploy through travis
-- [ ] Tutorial
-- [ ] Check assumed reynolds number.
 -  [ ] Create decorator for fluid unit conversion.
-    -  [ ] Units: temperature, pressure
-    -  [ ] Convert dimensionless to default unit
-    - [ ] Check dimensioned units
+    -  [x] Units: temperature, pressure
+    -  [x] Convert dimensionless to default unit
+    - [x] Check dimensioned units
+- [ ] Tutorial
+- [ ] Check assumed reynolds number
+- [ ] Logical import structure.
 
 - [x] Finish rectangular velocity
 - [x] setup.py
+- [x] Deploy through travis
