@@ -1,14 +1,10 @@
 sudo: false
-
 language: python
-
 python:
 - '2.7'
 - '3.5'
-
 notifications:
   email: false
-
 install:
 - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
   -O miniconda.sh; else wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -23,17 +19,16 @@ install:
   coverage click
 - source activate test-environment
 - pip install pint coveralls
-
 script:
 - coverage run --source=ebb setup.py test
-
 after_success: coveralls
-
 deploy:
   provider: pypi
   user: lewis.a.marshall
   password:
-    secure: ED3TmnEto2g+XHZXe4HdxqQEuyn5V/erpTjbH5tkwOA2UB/eSe3mcd9nBDWg0VLeCqYAbEkIA5N+NCgKYP4n7vMYNNzU/pZ+q63cJt8DNqd2Ocxo1G7g0LEsRnuDTEad2cMKHc7eWtidJUer1j6LxzASqsK5doOudhgY1SxEX1Q=
+    secure: X1zXJt9Pa1lklJO3elNjQ4vcnRsuHm3HmCZ5nc/jAU6vcEkIFAW/8TQBqda/KDvLJxY+EyfeyuUetkqUUAVCHr3lePE0DQuuTTs8plOrQ4VkI4p5QysVtMfFjFogiBQM5/e7GZuBAbSoGC++O5MntMLitFcD/HOiqboWIk16jgTDSLILOGALcEQfnad3cK0m2wisEIcntV0UvuGfKZQeLh7XgakKyY74EZ/fvO9bG3+lkPS7vNQ1ieAiBEe7f2DsQdGQlEOV6NYIr37b66zlll5dWztbkJputbINWkmKu9rWUfT7HtU5Fz1KFsYSzJv8wR+9rZbygPadG1ygGOgSW6zm5plAv80zEqedDgJwGMZlwB0LmSpt+ExF3URvhaJjmRhJBA57RFmrSfqN3jx8FhvyLfoKQFD/4IxMy0MijCZ8GBlx9z3PXI3DJOBJFnuuo3hR3oee1W44g+qz0Rquh4ghC6G1qWEmYA56CeQbocPniJFcMLdZazG/alqjn//fUFvbO4R9hi/46xK9IcU0JnDEs6ycxrFO2C6DqEvNBOquhe5ajx15vsDB0wwCGtKtKScvyWuaRmsWnZB83uq07mpybXZtGFue3pQSAOcTJoTp/IXjtiuZWu6gfL2ingihqN2zOtsqaxIn1xtuNDLcr3K22/eyRLkTx0I3dDY3HRg=
   on:
     tags: true
     branch: master
+    distributions: sdist bdist_wheel
+    repo: lewisamarshall/ebb
