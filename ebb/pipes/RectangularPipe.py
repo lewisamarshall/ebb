@@ -1,6 +1,7 @@
 from __future__ import division, print_function, absolute_import
 from math import sqrt, pi, cos, cosh, tanh
 from .Pipe import Pipe
+from ..units import unitize
 
 class RectangularPipe(Pipe):
 
@@ -8,9 +9,9 @@ class RectangularPipe(Pipe):
     _width = None
 
     def __init__(self, height, width, length):
-        self._height = height
-        self._width = width
-        self._length = length
+        self._height = unitize(height, 'length')
+        self._width = unitize(width, 'length')
+        self._length = unitize(length, 'length')
 
     @property
     def height(self):

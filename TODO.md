@@ -5,6 +5,7 @@
 - [ ] Tutorial
 - [ ] Check assumed reynolds number
 - [ ] Logical import structure.
+- [ ] Add domain checking
 
 - [x] Finish rectangular velocity
 - [x] setup.py
