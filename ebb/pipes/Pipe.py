@@ -32,6 +32,21 @@ class Pipe(object):
         """Return a readable string representation."""
         return repr(self)
 
+    def _context(self, fluid, pressure, temperature):
+        old_fluid = self.fluid()
+        old_pressure = self.pressure()
+        old_temperature = self.temperature()
+
+        @contextmanager
+        def _contextmanager():
+            self.fluid(fluid)
+            self.pressure(pressure)
+            self.temperature(temperature)
+            yield
+            self.fluid(old_fluid)
+            self.pressure(old_pressure)
+            self.temperature(old_temperature)
+
     def fluid(self, fluid=False):
         if fluid is not False:
             self._fluid, old_fluid = fluid, self._fluid
