@@ -1,12 +1,16 @@
+- [ ] Add shear stress calculation
+- [ ] Figure out better tree plan
+- [ ] Add a better way of dealing with coord1 and 2.
+- [ ] collection of pipes
 -  [ ] Create decorator for fluid unit conversion.
     -  [x] Units: temperature, pressure
     -  [x] Convert dimensionless to default unit
     - [x] Check dimensioned units
-- [ ] Tutorial
-- [ ] Check assumed reynolds number
-- [ ] Logical import structure.
+- [ ] Check reynolds number
 - [ ] Add domain checking
 
+- [x] Logical import structure.
+- [x] Tutorial
 - [x] Finish rectangular velocity
 - [x] setup.py
 - [x] Deploy through travis
