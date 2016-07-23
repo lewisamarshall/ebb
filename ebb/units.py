@@ -17,6 +17,8 @@ default_units = {'length': unit_registry.meter,
                  'pressure': unit_registry.pascal,
                  'force': unit_registry.newton,
                  'temperature': unit_registry.degC,
+                 'angle': unit_registry.deg,
+                 'viscosity': unit_registry.poise,
                  }
 
 default_value = {'length': Quantity('1 m'),
@@ -24,6 +26,7 @@ default_value = {'length': Quantity('1 m'),
                  'pressure': Quantity('1 bar'),
                  'force': Quantity('1 N'),
                  'temperature': Quantity('25 degC'),
+                 'angle': Quantity('0 deg'),
                  }
 
 def unitize(arg, dim):
