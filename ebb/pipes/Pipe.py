@@ -1,11 +1,14 @@
 from __future__ import division, absolute_import
 
 from contextlib import contextmanager
+from ..units import unitize
 
 class Pipe(object):
+    """A base-class for pipe objects."""
 
     _fluid = None
     _pressure = None
+    _temperature = None
     _length = None
 
     @property
@@ -14,6 +17,7 @@ class Pipe(object):
 
     @property
     def hydraulic_diameter(self):
+        """Cross-sectional area divided by one-fourth the perimeter."""
         return 4 * self.section / self.perimeter
 
     def __init__(self):
@@ -23,9 +27,9 @@ class Pipe(object):
         """Return an unambiguous string representation."""
         inner = []
         for prop in self.__dict__:
-            prop = str(prop).lstrip('_')  # convert unicode to string
+            prop = str(prop)  # convert unicode to string
             value = getattr(self, prop)
-            inner.append('{}={}'.format(str(prop), repr(value)))
+            inner.append('{}={}'.format(str(prop).lstrip('_'), repr(value)))
         return '{}({})'.format(type(self).__name__, ', '.join(inner))
 
     def __str__(self):
@@ -33,67 +37,75 @@ class Pipe(object):
         return repr(self)
 
     def _context(self, fluid, pressure, temperature):
+        """Context manager to temporarily set conditions."""
         old_fluid = self.fluid()
         old_pressure = self.pressure()
         old_temperature = self.temperature()
 
         @contextmanager
         def _contextmanager():
-            self.fluid(fluid)
-            self.pressure(pressure)
-            self.temperature(temperature)
+            if fluid is not False:
+                self.fluid(fluid)
+            if pressure is not False:
+                self.pressure(pressure)
+            if temperature is not False:
+                self.temperature(temperature)
+
             yield
+
             self.fluid(old_fluid)
             self.pressure(old_pressure)
             self.temperature(old_temperature)
 
+        return _contextmanager()
+
     def fluid(self, fluid=False):
         if fluid is not False:
-            self._fluid, old_fluid = fluid, self._fluid
-
-            @contextmanager
-            def fluidmanager():
-                yield
-                self._fluid = old_fluid
-
-            return fluidmanager()
+            self._fluid = fluid
         else:
             return self._fluid
 
     def pressure(self, pressure=False):
         if pressure is not False:
-            self._pressure, old_pressure = pressure, self._pressure
-
-            @contextmanager
-            def pressuremanager():
-                yield
-                self._pressure = old_pressure
-
-            return pressuremanager()
+            if pressure is not None:
+                pressure = unitize(pressure, 'pressure')
+            self._pressure = pressure
         else:
             return self._pressure
 
-    def flow(self, pressure=False, fluid=False):
+    def temperature(self, temperature=False):
+        if temperature is not False:
+            if temperature is not None:
+                temperature = unitize(temperature, 'temperature')
+            self._temeprature = temperature
+        else:
+            return self._temperature
+
+    def flow(self, fluid=False, pressure=False, temperature=False):
         """The volumetric flow rate of fluid in the channel."""
-        with self.fluid(fluid or False), self.pressure(pressure or False):
+        with self._context(fluid, pressure, temperature):
             return self._flow().to('L/s')
 
-    def resistance(self, fluid=False):
+    def resistance(self, fluid=False, pressure=False, temperature=False):
         """The hydrodynamic resistance of the channel."""
-        with self.fluid(fluid):
+        with self._context(fluid, pressure, temperature):
             return self._resistance()
 
-    def velocity(self, radius, angle, pressure=False, fluid=False):
-        with self.pressure(pressure), self.fluid(fluid):
+    def velocity(self, radius, angle, fluid=False,
+                 pressure=False, temperature=False):
+        with self._context(fluid, pressure, temperature):
             return self._velocity(radius, angle).to('m/s')
 
-    def maximum_velocity(self, pressure=False, fluid=False):
-        with self.pressure(pressure), self.fluid(fluid):
+    def maximum_velocity(self, fluid=False, pressure=False, temperature=False):
+        """The maximum velocity in the pipe."""
+        with self._context(fluid, pressure, temperature):
             return self._maximum_velocity().to('m/s')
 
-    def reynolds(self, pressure=False, fluid=False):
-        with self.fluid(fluid), self.pressure(pressure):
-            return (self.maximum_velocity(pressure, fluid) * self.hydraulic_diameter /
+    def reynolds(self, fluid=False, pressure=False, temperature=False):
+        """The non-dimensional ratio of intertial and viscous forces."""
+        with self._context(fluid, pressure, temperature):
+            return (self.maximum_velocity() *
+                    self.hydraulic_diameter /
                     self.fluid().kinematic()).to('')
 
     @property

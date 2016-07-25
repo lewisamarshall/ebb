@@ -41,19 +41,19 @@ class TestPipe(object):
         self.pipe.volume
 
     def test_maximum_velocity(self):
-        self.pipe.maximum_velocity(fluid=Water, pressure=Q('0.1 psi'))
+        self.pipe.maximum_velocity(fluid=Water, pressure='0.1 psi')
 
     def test_flow(self):
-        self.pipe.flow(fluid=Water, pressure=Q('0.1 psi'))
+        self.pipe.flow(fluid=Water, pressure='0.1 psi')
 
     def test_reynolds(self):
-        self.pipe.reynolds(fluid=Water, pressure=Q('0.1 psi'))
+        self.pipe.reynolds(fluid=Water, pressure='0.1 psi')
 
 class TestUnitedCircularPipe(unittest.TestCase, TestPipe):
-    pipe=CircularPipe(Q('1 mm'), Q('1 m'))
+    pipe=CircularPipe('1 mm', '1 m')
 
 class TestUnitedRectangularPipe(unittest.TestCase, TestPipe):
-    pipe=RectangularPipe(Q('1 mm'), Q('5 mm'), Q('1 m'))
+    pipe=RectangularPipe('1 mm', '5 mm', '1 m')
 
 if __name__ == '__main__':
     unittest.main()
