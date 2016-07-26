@@ -8,6 +8,7 @@
     - [x] Check dimensioned units
 - [ ] Check reynolds number
 - [ ] Add domain checking
+- [ ] Add orifice model
 
 - [x] Logical import structure.
 - [x] Tutorial
