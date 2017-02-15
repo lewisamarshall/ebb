@@ -8,7 +8,3 @@ class Air(Gas):
     reference_viscosity = Q('18.27 uPa s')
     reference_temperature = Q('291.15 K')
     sutherland = Q('120 K')
-
-    @classmethod
-    def viscosity(self, temperature=None, pressure=None):
-        return ur.pascal * ur.second * 18e-6
