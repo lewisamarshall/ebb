@@ -2,10 +2,6 @@
 - [ ] Figure out better tree plan
 - [ ] Add a better way of dealing with coord1 and 2.
 - [ ] collection of pipes
--  [ ] Create decorator for fluid unit conversion.
-    -  [x] Units: temperature, pressure
-    -  [x] Convert dimensionless to default unit
-    - [x] Check dimensioned units
 - [ ] Check reynolds number
 - [ ] Add domain checking
 - [ ] Add orifice model
@@ -15,3 +11,7 @@
 - [x] Finish rectangular velocity
 - [x] setup.py
 - [x] Deploy through travis
+- [x] Create decorator for fluid unit conversion.
+    - [x] Units: temperature, pressure
+    - [x] Convert dimensionless to default unit
+    - [x] Check dimensioned units
