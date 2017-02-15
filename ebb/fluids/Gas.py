@@ -14,9 +14,9 @@ class Gas(Fluid):
     @classmethod
     def _viscosity(self, temperature, pressure):
         """Estimate the viscosity using Sutherland's formula."""
-        viscosity = (temperature / self.reference_temperature)**(3/2)
+        viscosity = (temperature.to('K') / self.reference_temperature)**(3/2)
         viscosity *= ((self.reference_temperature - self.sutherland) /
-                     (temperature - self.sutherland))
+                     (temperature.to('K') - self.sutherland))
         return viscosity * self.reference_viscosity
 
     @classmethod
