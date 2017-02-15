@@ -12,14 +12,25 @@ class FluidTests(object):
     fluid = Fluid
 
     def test_viscosity(self):
-        self.fluid.viscosity()
-        self.fluid.viscosity(temperature=30)
-        self.fluid.viscosity(pressure=1.5)
+        for viscosity in [self.fluid.viscosity(),
+                          self.fluid.viscosity(temperature=30),
+                          self.fluid.viscosity(pressure=1.5)]:
+            self.assertEqual(viscosity.dimensionality, Q('poise').dimensionality)
+
 
     def test_density(self):
-        self.fluid.density()
-        self.fluid.density(temperature=30)
-        self.fluid.density(pressure=1.5)
+        for density in [self.fluid.density(),
+                        self.fluid.density(temperature=30),
+                        self.fluid.density(pressure=1.5)
+                        ]:
+            self.assertEqual(density.dimensionality, Q('kg/L').dimensionality)
+
+    def test_kinematic(self):
+        for kinematic in [self.fluid.kinematic(),
+                          self.fluid.kinematic(temperature=30),
+                          self.fluid.kinematic(pressure='1.5 bar')]:
+            self.assertEqual(kinematic.dimensionality, Q('poise/kg*L').dimensionality)
+
 
 class TestWater(unittest.TestCase, FluidTests):
     fluid = Water
