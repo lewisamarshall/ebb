@@ -55,5 +55,11 @@ class TestUnitedCircularPipe(unittest.TestCase, TestPipe):
 class TestUnitedRectangularPipe(unittest.TestCase, TestPipe):
     pipe=RectangularPipe('1 mm', '5 mm', '1 m')
 
+class TestCircularPipe(unittest.TestCase, TestPipe):
+    pipe=CircularPipe(1e-3 , 1)
+
+class TestRectangularPipe(unittest.TestCase, TestPipe):
+    pipe=RectangularPipe(1e-3, 5e-3, 1)
+
 if __name__ == '__main__':
     unittest.main()
