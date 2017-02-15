@@ -36,7 +36,7 @@ def unitize(arg, dim):
         arg = Quantity(arg)
         dim = default_units[dim]
         if arg.dimensionless:
-            return Quantity(arg, dim)
+            return arg * dim
         elif arg.dimensionality != dim.dimensionality:
             raise DimensionalityError(arg, dim)
         else:
