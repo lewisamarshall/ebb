@@ -1,11 +1,11 @@
 Notes
 =====
 
-Dichotamies
+Dichotomies
 -----------
 - Viscous vs Inviscid
 - Internal vs External
-- Compressaible vs Incompressible
+- Compressible vs Incompressible
   - Mach number
   - Speed of sound is important
 - Laminar vs Turbulent
@@ -19,9 +19,9 @@ Fluid Properties
 ----------------
 - Density
 - Mean free path/continuum length
-- Vapour pressure (cavitation)
+- Vapor pressure (cavitation)
 - Internal Energy
-- Compressaibility
+- Compressibility
 - Speed of sound
 - Viscosity (simple temperature correction model in book)
 - Surface Energy
@@ -34,15 +34,13 @@ Euler Model
 - Acceleration field
 - Steady -> no t
 - Vector fields
-- dP/dL * L 
-
+- dP/dL * L
 
 General
 -------
 - Book notes importance of unit conversion.
 - Head pressure in pipes is important.
-- Figure out a good way of handling reference pressure. 
+- Figure out a good way of handling reference pressure.
 - Is pressure drop significant with respect to reference pressure?
 - Rotation?
 - HGL and EGL
-
