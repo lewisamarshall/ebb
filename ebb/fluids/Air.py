@@ -1,6 +1,5 @@
-from .Fluid import Fluid
 from .Gas import Gas
-from ..units import unit_registry as ur, Quantity as Q
+from ..units import Quantity as Q
 
 class Air(Gas):
 

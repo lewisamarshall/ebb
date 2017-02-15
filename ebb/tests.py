@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import unittest
 
-from .fluids import Fluid, Air, Water
+from .fluids import Fluid, Air, Water, Nitrogen, Oxygen, Helium
 from .pipes import Pipe, CircularPipe, RectangularPipe
 from .units import Quantity as Q
 
@@ -37,6 +37,15 @@ class TestWater(unittest.TestCase, FluidTests):
 
 class TestAir(unittest.TestCase, FluidTests):
     fluid = Air
+
+class TestNitrogen(unittest.TestCase, FluidTests):
+    fluid = Nitrogen
+
+class TestOxygen(unittest.TestCase, FluidTests):
+    fluid = Oxygen
+
+class TestHelium(unittest.TestCase, FluidTests):
+    fluid = Helium
 
 class TestPipe(object):
 
