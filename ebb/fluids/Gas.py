@@ -10,6 +10,7 @@ class Gas(Fluid):
     reference_viscosity = Q('0 uPa s')
     reference_temperature = Q('0 K')
     sutherland = Q('0 K')
+    _compressible = True
 
     @classmethod
     def _viscosity(self, temperature, pressure):

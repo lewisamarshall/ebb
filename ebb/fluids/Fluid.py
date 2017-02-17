@@ -4,6 +4,8 @@ from ..units import unitize
 
 class Fluid(object):
 
+    _compressible = False
+
     def __new__(cls, *args, **kwargs):
         raise TypeError('Fluids may not be instantiated.')
 
@@ -35,3 +37,7 @@ class Fluid(object):
         density = self.density(temperature, pressure)
         viscosity = self.viscosity(temperature, pressure)
         return viscosity/density
+
+    @classmethod
+    def compressible(self):
+        return self._compressible

@@ -18,6 +18,8 @@ class Liquid(Fluid):
     reference_density = None
     elasticity = None
 
+    _compressible = False
+
     @classmethod
     def _viscosity(self, temperature, pressure):
         reduced_energy = (self.activation_energy /

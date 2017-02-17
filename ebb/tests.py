@@ -3,13 +3,16 @@ from __future__ import absolute_import
 import unittest
 
 from .fluids import Fluid, Air, Water, Nitrogen, Oxygen, Helium
-from .pipes import Pipe, CircularPipe, RectangularPipe
+from .pipes import Pipe, CircularPipe, RectangularPipe, Orifice
 from .units import Quantity as Q
 
 
 class FluidTests(object):
 
     fluid = Fluid
+
+    def test_compressible(self):
+        self.fluid.compressible()
 
     def test_viscosity(self):
         for viscosity in [self.fluid.viscosity(),
@@ -50,6 +53,7 @@ class TestHelium(unittest.TestCase, FluidTests):
 class TestPipe(object):
 
     pipe = Pipe
+    fluids = (Water, Air)
 
     def test_resistance(self):
         self.pipe.resistance(fluid=Water)
@@ -80,6 +84,9 @@ class TestCircularPipe(unittest.TestCase, TestPipe):
 
 class TestRectangularPipe(unittest.TestCase, TestPipe):
     pipe=RectangularPipe(1e-3, 5e-3, 1)
+
+class TestOrifice(unittest.TestCase, TestPipe):
+    pipe = Orifice(1e-4, 1e-3)
 
 if __name__ == '__main__':
     unittest.main()
