@@ -12,6 +12,7 @@ class RectangularPipe(Pipe):
         self._height = unitize(height, 'length')
         self._width = unitize(width, 'length')
         self._length = unitize(length, 'length')
+        assert self.height <= self.width, 'height must be less than width.'
 
     @property
     def height(self):
