@@ -5,6 +5,8 @@
 - [ ] Check reynolds number
 - [ ] Add domain checking
 - [ ] Add orifice model
+- [ ] Switch core calculation to mass flow.
+- [ ] For compressible, differentiate between in and out.
 
 - [x] Logical import structure.
 - [x] Tutorial

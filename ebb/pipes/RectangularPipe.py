@@ -1,5 +1,5 @@
 from __future__ import division, print_function, absolute_import
-from math import sqrt, pi, cos, cosh, tanh
+from math import pi, cos, cosh, tanh
 from .Pipe import Pipe
 from ..units import unitize
 
