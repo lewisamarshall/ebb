@@ -59,3 +59,9 @@ class RectangularPipe(Pipe):
 
     def _resistance(self):
         pass
+
+class SquarePipe(RectangularPipe):
+
+    def __init__(self, width, length):
+        self._width = self._height = unitize(width, 'length')
+        self._length = unitize(length, 'length')
