@@ -29,7 +29,7 @@ class Pipe(object):
         for prop in self.__dict__:
             prop = str(prop)  # convert unicode to string
             value = getattr(self, prop)
-            inner.append('{}={}'.format(str(prop).lstrip('_'), repr(value)))
+            inner.append('{}={}'.format(str(prop).lstrip('_'), str(value)))
         return '{}({})'.format(type(self).__name__, ', '.join(inner))
 
     def __str__(self):
