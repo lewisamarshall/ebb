@@ -1,6 +1,7 @@
 from __future__ import division, absolute_import
 
-from ..units import unitize
+from ..units import unit_registry as ur
+from ..units import reference_pressure, reference_temperature
 
 class Fluid(object):
 
@@ -10,10 +11,9 @@ class Fluid(object):
         raise TypeError('Fluids may not be instantiated.')
 
     @classmethod
+    @ur.wraps(['Pa s'], ['C', 'Pa'])
     def viscosity(self, temperature=None, pressure=None):
         """Return the dynamic viscosity of the fluid."""
-        temperature = unitize(temperature, 'temperature')
-        pressure = unitize(pressure, 'pressure')
         return self._viscosity(temperature, pressure)
 
     @classmethod
@@ -21,10 +21,10 @@ class Fluid(object):
         raise NotImplementedError
 
     @classmethod
-    def density(self, temperature=None, pressure=None):
+
+    @ur.wraps(['kg/L'], ['C', 'Pa'])
+    def density(self, temperature=reference_temperature, pressure=reference_pressure):
         """Return the density of the fluid."""
-        temperature = unitize(temperature, 'temperature')
-        pressure = unitize(pressure, 'pressure')
         return self._density(temperature, pressure)
 
     @classmethod
@@ -32,6 +32,7 @@ class Fluid(object):
         raise NotImplementedError
 
     @classmethod
+    @ur.wraps(['m^2/s'], ['C', 'Pa'])
     def kinematic(self, temperature=None, pressure=None):
         """return the kinematic viscosity of the fluid."""
         density = self.density(temperature, pressure)

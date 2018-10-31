@@ -1,7 +1,7 @@
 from __future__ import division, absolute_import
 
 from contextlib import contextmanager
-from ..units import unitize
+from ..units import unit_registry as ur
 
 class Pipe(object):
     """A base-class for pipe objects."""
@@ -65,18 +65,17 @@ class Pipe(object):
         else:
             return self._fluid
 
+
+    @ur.wraps(None, (ur.bar))
     def pressure(self, pressure=False):
         if pressure is not False:
-            if pressure is not None:
-                pressure = unitize(pressure, 'pressure')
             self._pressure = pressure
         else:
             return self._pressure
 
+    @ur.wraps(None, (None, ur.degC))
     def temperature(self, temperature=False):
         if temperature is not False:
-            if temperature is not None:
-                temperature = unitize(temperature, 'temperature')
             self._temeprature = temperature
         else:
             return self._temperature
