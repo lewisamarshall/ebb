@@ -74,19 +74,19 @@ class TestPipe(object):
         self.pipe.reynolds(fluid=Water, pressure='0.1 psi')
 
 class TestUnitedCircularPipe(unittest.TestCase, TestPipe):
-    pipe=CircularPipe('1 mm', '1 m')
+    pipe=CircularPipe(Q('1 mm'), Q('1 m'))
 
 class TestUnitedRectangularPipe(unittest.TestCase, TestPipe):
-    pipe=RectangularPipe('1 mm', '5 mm', '1 m')
+    pipe=RectangularPipe(Q('1 mm'), Q('5 mm'), Q('1 m'))
 
 class TestCircularPipe(unittest.TestCase, TestPipe):
-    pipe=CircularPipe(1e-3 , 1)
+    pipe=CircularPipe(Q('1e-3 m') , Q('1 m'))
 
 class TestRectangularPipe(unittest.TestCase, TestPipe):
-    pipe=RectangularPipe(1e-3, 5e-3, 1)
+    pipe=RectangularPipe(Q('1e-3 m'), Q('5e-3 m'), Q('1 m'))
 
 class TestOrifice(unittest.TestCase, TestPipe):
-    pipe = Orifice(1e-4, 1e-3)
+    pipe = Orifice(Q('1e-4 m'), Q('1e-3 m'))
 
 if __name__ == '__main__':
     unittest.main()

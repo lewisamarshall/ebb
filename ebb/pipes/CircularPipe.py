@@ -1,13 +1,14 @@
 from __future__ import division, absolute_import
 from math import pi
 from .Pipe import Pipe
-from ..units import unitize
+from ..units import unit_registry as ur
 
 class CircularPipe(Pipe):
 
+    @ur.wraps(None, (None, ur.meter, ur.meter))
     def __init__(self, radius, length):
-        self._radius = unitize(radius, 'length')
-        self._length = unitize(length, 'length')
+        self._radius = radius
+        self._length = length
 
     @property
     def radius(self):
@@ -30,7 +31,7 @@ class CircularPipe(Pipe):
         Q = (pi * self.radius**4 * self.pressure() /
              self.length / 8 / self.fluid().viscosity()
              )
-             
+
         return Q
 
     def _resistance(self):

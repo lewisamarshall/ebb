@@ -1,15 +1,15 @@
 from .Pipe import Pipe
-from ..units import unitize
+from ..units import unit_registry as ur, Quantity as Q
 from math import pi, sqrt
 
 
 class Orifice(Pipe):
 
-
-    def __init__(self, radius, pipe, length=0):
-            self._radius = unitize(radius, 'length')
-            self._pipe = unitize(pipe, 'length')
-            self._length = unitize(length, 'length')
+    @ur.wraps(None, (None, ur.meter, ur.meter, ur.meter))
+    def __init__(self, radius, pipe, length=Q('0 m')):
+            self._radius = radius
+            self._pipe = pipe
+            self._length = length
 
     @property
     def radius(self):

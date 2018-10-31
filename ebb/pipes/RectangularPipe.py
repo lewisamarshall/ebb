@@ -1,17 +1,18 @@
 from __future__ import division, print_function, absolute_import
 from math import pi, cos, cosh, tanh
 from .Pipe import Pipe
-from ..units import unitize
+from ..units import unit_registry as ur
 
 class RectangularPipe(Pipe):
 
     _height = None
     _width = None
 
+    @ur.wraps(None, (None, ur.meter, ur.meter, ur.meter))
     def __init__(self, height, width, length):
-        self._height = unitize(height, 'length')
-        self._width = unitize(width, 'length')
-        self._length = unitize(length, 'length')
+        self._height = height
+        self._width = width
+        self._length = length
         assert self.height <= self.width, 'height must be less than width.'
 
     @property
@@ -62,6 +63,7 @@ class RectangularPipe(Pipe):
 
 class SquarePipe(RectangularPipe):
 
+    @ur.wraps(None, (None, ur.meter, ur.meter))
     def __init__(self, width, length):
-        self._width = self._height = unitize(width, 'length')
-        self._length = unitize(length, 'length')
+        self._width = self._height = width
+        self._length = length
